@@ -24,36 +24,67 @@ amish@sg:~$ uptime
 <br>
 
 ```console
-amish@sg:~$ systemctl list-units --type=shipped        # three years at Haltdos, intern → L-3
+amish@sg:~$ systemctl list-units --type=shipped
+```
+```diff
+# three years at Haltdos, intern → L-3
 
-  UNIT                              ACTIVE   DESCRIPTION
-● remote-access-gateway.service     active   ground-up rewrite as the only engineer on the product:
-                                             MFA, fine-grained access policies, browser SSH/RDP/VNC,
-                                             session auditing, Rust client with endpoint validation
-● secure-web-proxy.service          active   dual deployment modes, SSL inspection, domain filtering;
-                                             deployed for enterprise and government clients
-● pro-waf.service                   active   co-led: auto-upgrade system, licensing and subscription
-                                             management, multi-platform builds
-● enterprise-accounts.target        active   account manager for two enterprise WAF / anti-DDoS customers
-                                             across on-premises, SaaS, and private cloud
-● threat-intel-feed.service         active   malicious IPs, bad bots, TOR exit nodes → detection pipelines
-● rhel-migration.service            active   moved the whole product line onto Red Hat Enterprise Linux
-● release-cli.service               active   one Go CLI replaced mixed-language release scripts;
-                                             Jenkins CI replaced manual VM builds
-● monitoring.service                active   Grafana + VictoriaMetrics for distributed WAF nodes, real-time alerting
-● mentoring.service                 active   6 interns; 4 hired full-time
++ ● remote-access-gateway.service      active
+      ground-up rewrite as the only engineer on the product: MFA, fine-grained
+      access policies, browser SSH/RDP/VNC, session auditing, Rust client with
+      endpoint validation
 
-9 loaded units listed.
++ ● secure-web-proxy.service           active
+      dual deployment modes, SSL inspection, domain filtering;
+      deployed for enterprise and government clients
+
++ ● pro-waf.service                    active
+      co-led: auto-upgrade system, licensing and subscription management,
+      multi-platform builds
+
++ ● enterprise-accounts.target         active
+      account manager for two enterprise WAF / anti-DDoS customers
+      across on-premises, SaaS, and private cloud
+
++ ● threat-intel-feed.service          active
+      malicious IPs, bad bots, TOR exit nodes → detection pipelines
+
++ ● rhel-migration.service             active
+      moved the whole product line onto Red Hat Enterprise Linux
+
++ ● release-cli.service                active
+      one Go CLI replaced mixed-language release scripts;
+      Jenkins CI replaced manual VM builds
+
++ ● monitoring.service                 active
+      Grafana + VictoriaMetrics for distributed WAF nodes, real-time alerting
+
++ ● mentoring.service                  active
+      6 interns; 4 hired full-time
+
+@@ 9 loaded units listed. 0 failed. @@
 ```
 
 <br>
 
 ```console
 amish@sg:~$ cat ~/.config/stack.toml
-[languages]   go · rust · c · python · java · bash · javascript
-[security]    modsecurity/crs · nginx modules · waf & anti-ddos ops · ebpf & auditd · threat intel pipelines
-[backend]     spring boot · fastapi · django · next.js · react
-[infra]       linux · docker · kubernetes · nginx · jenkins · grafana · victoriametrics · elasticsearch
+```
+```toml
+[languages]
+primary   = ["go", "rust", "c", "python"]
+also      = ["java", "bash", "javascript"]
+
+[security]
+web       = ["modsecurity/crs", "nginx modules", "waf & anti-ddos operations"]
+host      = ["ebpf", "auditd", "threat intelligence pipelines"]
+
+[backend]
+frameworks = ["spring boot", "fastapi", "django", "next.js", "react"]
+
+[infra]
+runtime    = ["linux", "docker", "kubernetes", "nginx"]
+delivery   = ["jenkins", "grafana", "victoriametrics", "elasticsearch"]
 ```
 
 <br>
@@ -64,34 +95,55 @@ Tools for people who run WAFs and investigate hosts. Each one exists because I w
 
 | | | |
 | --- | --- | --- |
-| [**ngx_json_guard**](https://github.com/Vulcanite/ngx_json_guard) | `C` `NGINX` | Checks large JSON request bodies against structural limits *before* ModSecurity sees them, so full CRS inspection of big JSON is safe instead of a DoS vector. |
-| [**waf-tuner**](https://github.com/Vulcanite/waf-tuner) | `Python` `FastAPI` `Next.js` | Human review queue for CRS alerts. A model classifies evidence and drafts parameter-scoped exceptions. The operator decides. The model never writes edge config. |
-| [**ThreatFetch**](https://github.com/Vulcanite/ThreatFetch) | `Go` | IOC triage from the terminal. One binary, many providers, one deterministic threat score. |
-| [**auditstream**](https://github.com/Vulcanite/auditstream) | `Python` `NetworkX` | auditd or live telemetry in, provenance graph out. Noise reduction and investigation findings with the graph as the evidence trail. |
-| [**sshnav**](https://github.com/Vulcanite/sshnav) | `Rust` `SQLite` | Fuzzy TUI over your SSH inventory. Imports OpenSSH config, including `Host *` inheritance. |
-| [**vllm-gpu-manager**](https://github.com/Vulcanite/vllm-gpu-manager) | `Go` `Docker` `React` | Single binary for running vLLM on NVIDIA hosts: GPU placement, VRAM launch checks, KV-cache estimation. |
+| [**ngx_json_guard**](https://github.com/Vulcanite/ngx_json_guard) | ![C](https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=black) ![NGINX](https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white) | Checks large JSON request bodies against structural limits *before* ModSecurity sees them, so full CRS inspection of big JSON is safe instead of a DoS vector. |
+| [**waf-tuner**](https://github.com/Vulcanite/waf-tuner) | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) | Human review queue for CRS alerts. A model classifies evidence and drafts parameter-scoped exceptions. The operator decides. The model never writes edge config. |
+| [**ThreatFetch**](https://github.com/Vulcanite/ThreatFetch) | ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white) | IOC triage from the terminal. One binary, many providers, one deterministic threat score. |
+| [**auditstream**](https://github.com/Vulcanite/auditstream) | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![NetworkX](https://img.shields.io/badge/NetworkX-2C3E50?style=flat-square) | auditd or live telemetry in, provenance graph out. Noise reduction and investigation findings with the graph as the evidence trail. |
+| [**sshnav**](https://github.com/Vulcanite/sshnav) | ![Rust](https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) | Fuzzy TUI over your SSH inventory. Imports OpenSSH config, including `Host *` inheritance. |
+| [**vllm-gpu-manager**](https://github.com/Vulcanite/vllm-gpu-manager) | ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) | Single binary for running vLLM on NVIDIA hosts: GPU placement, VRAM launch checks, KV-cache estimation. |
 
 <br>
 
 ```console
 amish@sg:~$ journalctl -u awards --no-pager
-Sep 2024  haltdos    Best Performer (Engineering) of the Year
-Sep 2023  haltdos    Best Motivated Employee Award
-Aug 2022  gov.in     Smart India Hackathon 2022 — Winner
+```
+```diff
++ Sep 2024   haltdos    Best Performer (Engineering) of the Year
++ Sep 2023   haltdos    Best Motivated Employee Award
++ Aug 2022   gov.in     Smart India Hackathon 2022 — Winner
 ```
 
 <br>
 
 ```console
-amish@sg:~$ cat /etc/rules.d/how-i-work.conf
-# read the code before changing it
-# ship to a real machine, not a demo
-# the model can draft; a person decides
-# if it needs a runbook, it needs a fix
+amish@sg:~$ git diff HEAD~3y -- how-i-work.conf
+```
+```diff
+- change it, then read it
++ read the code before changing it
+
+- ship the demo
++ ship to a real machine
+
+- let the model change prod
++ the model drafts; a person decides
+
+- write a runbook for the bug
++ fix the bug
+```
+
+<br>
+
+```console
+amish@sg:~$ cat ~/contact
+Amish Thekke Parambil — Singapore
+Email is the fastest way to reach me. LinkedIn works too.
 
 amish@sg:~$ exit
 ```
 
 <p align="center">
-  <a href="https://amishtp.tech">amishtp.tech</a> · <a href="https://www.linkedin.com/in/amish-thekke-parambil/">LinkedIn</a> · <a href="mailto:amishtp147@outlook.com">amishtp147@outlook.com</a>
+  <a href="mailto:amishtp147@outlook.com"><img src="https://img.shields.io/badge/Email_me-amishtp147%40outlook.com-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email Amish" /></a>
+  <a href="https://www.linkedin.com/in/amish-thekke-parambil/"><img src="https://img.shields.io/badge/Message_me_on-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Amish on LinkedIn" /></a>
+  <a href="https://amishtp.tech"><img src="https://img.shields.io/badge/My_site-amishtp.tech-0A0A0A?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Amish's portfolio" /></a>
 </p>
