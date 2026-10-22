@@ -91,46 +91,15 @@ delivery   = ["jenkins", "grafana", "victoriametrics", "elasticsearch"]
 
 ### `ls ~/projects`
 
-Tools for people who run WAFs and investigate hosts. Each one exists because I wanted it at 2 a.m. and it didn't.
+Tools for people who run WAFs and investigate hosts. Each one exists because I wanted it and AI makes it easy to develop and build.
 
-| | | |
+| Project | Stack | What it does |
 | --- | --- | --- |
 | [**ngx_json_guard**](https://github.com/Vulcanite/ngx_json_guard) | ![C](https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=black) ![NGINX](https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white) | Checks large JSON request bodies against structural limits *before* ModSecurity sees them, so full CRS inspection of big JSON is safe instead of a DoS vector. |
 | [**waf-tuner**](https://github.com/Vulcanite/waf-tuner) | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) | Human review queue for CRS alerts. A model classifies evidence and drafts parameter-scoped exceptions. The operator decides. The model never writes edge config. |
-| [**ThreatFetch**](https://github.com/Vulcanite/ThreatFetch) | ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white) | IOC triage from the terminal. One binary, many providers, one deterministic threat score. |
-| [**auditstream**](https://github.com/Vulcanite/auditstream) | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![NetworkX](https://img.shields.io/badge/NetworkX-2C3E50?style=flat-square) | auditd or live telemetry in, provenance graph out. Noise reduction and investigation findings with the graph as the evidence trail. |
 | [**sshnav**](https://github.com/Vulcanite/sshnav) | ![Rust](https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) | Fuzzy TUI over your SSH inventory. Imports OpenSSH config, including `Host *` inheritance. |
 | [**vllm-gpu-manager**](https://github.com/Vulcanite/vllm-gpu-manager) | ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) | Single binary for running vLLM on NVIDIA hosts: GPU placement, VRAM launch checks, KV-cache estimation. |
-
-<br>
-
-```console
-amish@sg:~$ journalctl -u awards --no-pager
-```
-```diff
-+ Sep 2024   haltdos    Best Performer (Engineering) of the Year
-+ Sep 2023   haltdos    Best Motivated Employee Award
-+ Aug 2022   gov.in     Smart India Hackathon 2022 — Winner
-```
-
-<br>
-
-```console
-amish@sg:~$ git diff HEAD~3y -- how-i-work.conf
-```
-```diff
-- change it, then read it
-+ read the code before changing it
-
-- ship the demo
-+ ship to a real machine
-
-- let the model change prod
-+ the model drafts; a person decides
-
-- write a runbook for the bug
-+ fix the bug
-```
+| [**wg-manager**](https://github.com/Vulcanite/wg-manager) | ![Bash](https://img.shields.io/badge/Bash-4EAA25?style=flat-square&logo=gnubash&logoColor=white) ![WireGuard](https://img.shields.io/badge/WireGuard-88171A?style=flat-square&logo=wireguard&logoColor=white) | One Bash file that sets up a WireGuard server and manages its users: QR codes, traffic, and IPv6 routed into the tunnel so it can't leak. |
 
 <br>
 
